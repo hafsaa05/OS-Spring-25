@@ -1,2 +1,2 @@
 output:
-    g++ student.cpp teacher.cpp course.cpp main.cpp -o output
+        g++ student.cpp teacher.cpp course.cpp main.cpp -o output
