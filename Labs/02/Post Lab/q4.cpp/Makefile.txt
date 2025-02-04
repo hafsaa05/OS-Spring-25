@@ -1,0 +1,5 @@
+output: 
+	g++ lettercount.cpp wordcount.cpp linecount.cpp main.cpp -o output
+
+clean:
+	rm -f output
