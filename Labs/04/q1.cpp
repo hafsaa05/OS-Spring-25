@@ -1,32 +1,22 @@
-#include <stdio.h>
+#include <iostream>
 #include <unistd.h>
 #include <sys/wait.h>
+using namespace std;
 
 int main() {
     pid_t child1, child2;
 
     child1 = fork();
     if (child1 == 0) {
-        printf("First Child: My PID is %d\n", getpid());
+        cout << "First Child: My PID is " << getpid() << endl;
         return 0;
     } 
     else if (child1 > 0) {
         child2 = fork();
         if (child2 == 0) {
-            printf("Second Child: My Parent PID is %d\n", getppid());
+            cout << "Second Child: My Parent PID is " << getppid() << endl;
             return 0;
         }
         else if (child2 > 0) {
             wait(NULL);
-            wait(NULL);
-            printf("Parent: Both children have terminated.\n");
-        }
-        else {
-            printf("Failed to create second child process.\n");
-        }
-    } 
-    else {
-        printf("Failed to create first child process.\n");
-    }
-    return 0;
-}
+            wait(NULL
