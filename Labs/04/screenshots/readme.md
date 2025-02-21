@@ -8,3 +8,5 @@
 <img width="449" alt="image" src="https://github.com/user-attachments/assets/798aa2d6-4fd3-4f8b-8b01-035432016d21" />
 # Q6
 <img width="318" alt="image" src="https://github.com/user-attachments/assets/50a17e0f-30be-41ab-a3dc-0bd0dca6acf2" />
+# Q7
+<img width="940" alt="image" src="https://github.com/user-attachments/assets/43a205b5-2925-48ae-879e-4fbdb2f91583" />
