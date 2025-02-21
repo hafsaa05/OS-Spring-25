@@ -1,5 +1,6 @@
-#include <stdio.h>
+#include <iostream>
 #include <unistd.h>
+using namespace std;
 
 int main() {
     pid_t pid;
@@ -7,16 +8,16 @@ int main() {
     pid = fork();
     if (pid == 0) {
         for (int i = 0; i < 100; i++) {
-            printf("I am a child process\n");
+            cout << "I am a child process" << endl;
         }
     } 
     else if (pid > 0) {
         for (int i = 0; i < 100; i++) {
-            printf("I am a parent process\n");
+            cout << "I am a parent process" << endl;
         }
     } 
     else {
-        printf("Failed to create child process.\n");
+        cout << "Failed to create child process." << endl;
     }
     return 0;
 }
