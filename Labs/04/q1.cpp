@@ -19,4 +19,15 @@ int main() {
         }
         else if (child2 > 0) {
             wait(NULL);
-            wait(NULL
+            wait(NULL);
+            cout << "Parent: Both children have terminated." << endl;
+        }
+        else {
+            cerr << "Error: Failed to create second child process." << endl;
+        }
+    } 
+    else {
+        cerr << "Error: Failed to create first child process." << endl;
+    }
+    return 0;
+}
