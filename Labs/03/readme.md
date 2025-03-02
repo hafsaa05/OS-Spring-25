@@ -6,3 +6,5 @@
 <img width="263" alt="image" src="https://github.com/user-attachments/assets/55b4a6f5-1ae7-464c-844e-3bfdb15bd83f" />
 ## Q4
 <img width="269" alt="image" src="https://github.com/user-attachments/assets/650166c9-9a8d-425a-a9f7-a7e70b96fbd0" />
+## Q5
+<img width="473" alt="image" src="https://github.com/user-attachments/assets/a67e9143-34c0-4e6a-aadc-59e569c19dbb" />
