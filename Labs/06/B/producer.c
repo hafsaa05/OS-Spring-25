@@ -7,37 +7,35 @@
 #include <string.h>
 
 #define FIFO_FILE "/tmp/myfifo"
-#define BUFSIZ 1024
 
 int main() {
     int fd;
     char buffer[BUFSIZ];
     ssize_t num_bytes;
 
-    mkfifo(FIFO_FILE, 0666);  // Create the named pipe (FIFO)
-    fd = open(FIFO_FILE, O_WRONLY);  // Open the named pipe for writing (producer)
+    // Open FIFO for reading
+    fd = open(FIFO_FILE, O_RDONLY);
     if (fd == -1) {
         perror("open");
         exit(EXIT_FAILURE);
     }
 
-    // Producer loop
+    // Consumer loop
     while (1) {
-        printf("Producer: Enter a message (or 'exit' to quit): ");
-        fgets(buffer, BUFSIZ, stdin);
-
-        num_bytes = write(fd, buffer, strlen(buffer)); // Write input to the named pipe
+        num_bytes = read(fd, buffer, BUFSIZ);
         if (num_bytes == -1) {
-            perror("write");
+            perror("read");
             exit(EXIT_FAILURE);
         }
 
-        if (strncmp(buffer, "exit", 4) == 0) { // Check for exit condition
+        buffer[num_bytes] = '\0'; // Null-terminate the buffer
+        printf("Consumer: Received message: %s", buffer);
+
+        if (strncmp(buffer, "exit", 4) == 0) {
             break;
         }
     }
 
-    close(fd);              // Close the named pipe
-    unlink(FIFO_FILE);      // Remove the named pipe from the file system
+    close(fd); // Close the named pipe
     return 0;
 }
