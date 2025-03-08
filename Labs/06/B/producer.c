@@ -13,29 +13,32 @@ int main() {
     char buffer[BUFSIZ];
     ssize_t num_bytes;
 
-    // Open FIFO for reading
-    fd = open(FIFO_FILE, O_RDONLY);
+    mkfifo(FIFO_FILE, 0666); // Create the named pipe (FIFO)
+    fd = open(FIFO_FILE, O_WRONLY); // Open the named pipe for writing (producer)
     if (fd == -1) {
         perror("open");
         exit(EXIT_FAILURE);
     }
 
-    // Consumer loop
+    // Producer loop
     while (1) {
-        num_bytes = read(fd, buffer, BUFSIZ);
+        printf("Producer: Enter a message (or 'exit' to quit): ");
+        fgets(buffer, BUFSIZ, stdin);
+
+        num_bytes = write(fd, buffer, strlen(buffer)); // Write input to the named pipe
         if (num_bytes == -1) {
-            perror("read");
+            perror("write");
             exit(EXIT_FAILURE);
         }
 
-        buffer[num_bytes] = '\0'; // Null-terminate the buffer
-        printf("Consumer: Received message: %s", buffer);
+        printf("Producer: Message sent: %s", buffer); // Confirmation message
 
-        if (strncmp(buffer, "exit", 4) == 0) {
+        if (strncmp(buffer, "exit", 4) == 0) { // Check for exit condition
             break;
         }
     }
 
-    close(fd); // Close the named pipe
+    close(fd);         // Close the named pipe
+    unlink(FIFO_FILE); // Remove the named pipe from the file system
     return 0;
 }
