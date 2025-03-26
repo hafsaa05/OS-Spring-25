@@ -1,4 +1,4 @@
-* Task 1 :
+Task 1 :
 
 (a) The argument pthread_create() is used to pass parameters to the thread.The argument must be of type void *, so we pass a pointer. Inside runner(), we cast it back to its original type.
 
