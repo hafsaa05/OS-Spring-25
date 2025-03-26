@@ -1,3 +1,5 @@
+* Task 1 :
+
 (a) The argument pthread_create() is used to pass parameters to the thread.The argument must be of type void *, so we pass a pointer. Inside runner(), we cast it back to its original type.
 
 (b) pthread_attr_init() initializes thread attributes like stack size, scheduling policy, and detach state. If not set, default values are used. Attributes can be modified using functions like pthread_attr_setdetachstate() and pthread_attr_setstacksize().
