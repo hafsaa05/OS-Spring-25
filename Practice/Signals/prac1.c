@@ -5,10 +5,17 @@
 void signal_handler(int signum) {
     fprintf(stdout, "Caught SIGINT signal %d\n", signum); // Added newline
     fflush(stdout); // Ensure the output is printed immediately
+    exit(0);  // Cleanly terminate
+    raise(SIGKILL);  // Force kill this process
+}
+
+void my_handler(int signum) {
+    printf("Caught custom user signal SIGUSR1: %d\n", signum);
+    fflush(stdout);
 }
 
 int main() {
-    signal(SIGINT, signal_handler);
+    signal(SIGINT, sigint_handler);      // Ctrl+C handler
     printf("Press ctrl+c to activate signal...\n");
 
     // Keep the program running
