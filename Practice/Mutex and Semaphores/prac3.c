@@ -15,7 +15,7 @@
 
 sem_t two_table_sem;
 sem_t four_table_sem;
-pthread_mutex_t print_lock;
+pthread_mutex_t mutex;
 
 void* group_of_two(void* arg) {
     int id = *(int*)arg;
@@ -23,15 +23,15 @@ void* group_of_two(void* arg) {
     printf("Group of 2 [%d] is waiting for a 2-person table.\n", id);
     sem_wait(&two_table_sem);
 
-    pthread_mutex_lock(&print_lock);
+    pthread_mutex_lock(&mutex);
     printf("Group of 2 [%d] got a 2-person table and is dining...\n", id);
-    pthread_mutex_unlock(&print_lock);
+    pthread_mutex_unlock(&mutex);
 
     sleep(2); // simulate dining time
 
-    pthread_mutex_lock(&print_lock);
+    pthread_mutex_lock(&mutex);
     printf("Group of 2 [%d] is done and released the table.\n", id);
-    pthread_mutex_unlock(&print_lock);
+    pthread_mutex_unlock(&mutex);
 
     sem_post(&two_table_sem);
     pthread_exit(NULL);
@@ -43,15 +43,15 @@ void* group_of_four(void* arg) {
     printf("Group of 4 [%d] is waiting for the 4-person table.\n", id);
     sem_wait(&four_table_sem);
 
-    pthread_mutex_lock(&print_lock);
+    pthread_mutex_lock(&mutex);
     printf("Group of 4 [%d] got the 4-person table and is dining...\n", id);
-    pthread_mutex_unlock(&print_lock);
+    pthread_mutex_unlock(&mutex);
 
     sleep(3); // simulate dining time
 
-    pthread_mutex_lock(&print_lock);
+    pthread_mutex_lock(&mutex);
     printf("Group of 4 [%d] is done and released the table.\n", id);
-    pthread_mutex_unlock(&print_lock);
+    pthread_mutex_unlock(&mutex);
 
     sem_post(&four_table_sem);
     pthread_exit(NULL);
@@ -63,7 +63,7 @@ int main() {
 
     sem_init(&two_table_sem, 0, TWO_TABLES);
     sem_init(&four_table_sem, 0, FOUR_TABLES);
-    pthread_mutex_init(&print_lock, NULL);
+    pthread_mutex_init(&mutex, NULL);
 
     for (int i = 0; i < GROUP_COUNT; i++) {
         ids[i] = i + 1;
@@ -84,7 +84,7 @@ int main() {
 
     sem_destroy(&two_table_sem);
     sem_destroy(&four_table_sem);
-    pthread_mutex_destroy(&print_lock);
+    pthread_mutex_destroy(&mutex);
 
     return 0;
 }
