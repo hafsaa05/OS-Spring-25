@@ -34,6 +34,7 @@ void* group_of_two(void* arg) {
     pthread_mutex_unlock(&mutex);
 
     sem_post(&two_table_sem);
+    free(arg);
     pthread_exit(NULL);
 }
 
@@ -54,25 +55,26 @@ void* group_of_four(void* arg) {
     pthread_mutex_unlock(&mutex);
 
     sem_post(&four_table_sem);
+    free(arg);
     pthread_exit(NULL);
 }
 
 int main() {
     pthread_t threads[GROUP_COUNT];
-    int ids[GROUP_COUNT];
 
     sem_init(&two_table_sem, 0, TWO_TABLES);
     sem_init(&four_table_sem, 0, FOUR_TABLES);
     pthread_mutex_init(&mutex, NULL);
 
     for (int i = 0; i < GROUP_COUNT; i++) {
-        ids[i] = i + 1;
+        int* id = malloc(sizeof(int));
+        *id = i + 1;
 
         // Randomly assign either a group of 2 or 4
         if (rand() % 2 == 0) {
-            pthread_create(&threads[i], NULL, group_of_two, &ids[i]);
+            pthread_create(&threads[i], NULL, group_of_two, id);
         } else {
-            pthread_create(&threads[i], NULL, group_of_four, &ids[i]);
+            pthread_create(&threads[i], NULL, group_of_four, id);
         }
 
         usleep(100000); // slight delay to better observe output
