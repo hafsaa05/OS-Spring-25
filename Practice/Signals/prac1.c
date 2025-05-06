@@ -1,18 +1,20 @@
-#include<stdio.h>
-#include<signal.h>
-#include<unistd.h>
+#include <stdio.h>
+#include <signal.h>
+#include <unistd.h>
 
-void signal_handler(int signum){
-    fprintf(stdout, "Caught SIGINT signal %d", signum);
+void signal_handler(int signum) {
+    fprintf(stdout, "Caught SIGINT signal %d\n", signum); // Added newline
+    fflush(stdout); // Ensure the output is printed immediately
 }
 
-int main(){
+int main() {
     signal(SIGINT, signal_handler);
-    printf("Press ctrl+c to activate signal..");
+    printf("Press ctrl+c to activate signal...\n");
 
-    //to keep the program running
-    while(1){
-        sleep(0.5);
+    // Keep the program running
+    while (1) {
+        usleep(500000); // 0.5 seconds = 500,000 microseconds
     }
+
     return 0;
 }
