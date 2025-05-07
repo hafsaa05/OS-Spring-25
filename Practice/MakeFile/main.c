@@ -1,10 +1,13 @@
 // main.c
 #include <stdio.h>
-
-// Declare the external function
-void greet();
+#include <string.h>
+#include "functions.h"
 
 int main() {
-    greet();
+    Person p;
+    strcpy(p.name, "Hafsa");
+    p.age = 21;
+
+    greet(p);
     return 0;
 }
